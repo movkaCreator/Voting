@@ -11,7 +11,7 @@ public class Voting extends JFrame {
     private JButton sendBtn;
     private JTextField[] textFields;
     private JCheckBox[] checkBoxes;
-    private String[] surnames = { "Хашаев М.А.", "Ткачева А.А.", "Гиевой Д.С.", "Шевченко П.С.", "Путин В.В." };
+    private String[] surnames = { "Хашаев М.А.", "Ткачева А.А.", "Гиевой Д.С.", "Шевченко П.A.", "Путин В.В." };
 
     private int keys[] = {5, 3, 4};
 
