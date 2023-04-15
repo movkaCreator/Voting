@@ -54,34 +54,61 @@ public class Voting extends JFrame {
 
         sendBtn.setVisible(false);
 
-
-
         sendBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                StringBuilder sb = new StringBuilder("Проверка:\n");
+                JPanel buttonPanel = new JPanel(new FlowLayout());
+                JButton confirmBtn = new JButton("Подтвердить");
+                JButton rejectBtn = new JButton("Отклонить");
+                buttonPanel.add(confirmBtn);
+                buttonPanel.add(rejectBtn);
 
+                StringBuilder sb = new StringBuilder("Проверка:\n");
                 for (int i = 0; i < checkBoxes.length; i++) {
                     if (checkBoxes[i].isSelected()) {
                         sb.append(surnames[i] + ": " + decrypt(textFields[i].getText(), keys) + "\n");
                     }
                 }
 
-                JFrame resultFrame = new JFrame("Результат");
-                resultFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                resultFrame.setLocationRelativeTo(null);
-                JTextArea resultArea = new JTextArea(sb.toString());
-                resultArea.setEditable(false);
-                resultFrame.add(new JScrollPane(resultArea));
-                resultFrame.pack();
-                resultFrame.setVisible(true);
-
+                JFrame frame = new JFrame("Подтверждение");
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                frame.setLayout(new BorderLayout());
+                frame.add(new JScrollPane(new JTextArea(sb.toString())),
+                        BorderLayout.CENTER);
+                frame.add(buttonPanel, BorderLayout.SOUTH);
+                frame.pack();
+                frame.setLocationRelativeTo(null);
+                frame.setVisible(true);
                 dispose();
+
+                confirmBtn.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent event) {
+                        JFrame resultFrame = new JFrame("Результат");
+                        resultFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                        resultFrame.setLocationRelativeTo(null);
+                        resultFrame.add(new JScrollPane(new JTextArea("Сообщения подтверждены")));
+                        resultFrame.pack();
+                        resultFrame.setVisible(true);
+                        frame.dispose();
+                    }
+                });
+                rejectBtn.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent event) {
+                        JFrame resultFrame = new JFrame("Результат");
+                        resultFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                        resultFrame.setLocationRelativeTo(null);
+                        resultFrame.add(new JScrollPane(new JTextArea("Сообщения отклонены")));
+                        resultFrame.pack();
+                        resultFrame.setVisible(true);
+                        frame.dispose();
+                    }
+                });
             }
         });
 
+
         JPanel buttonsPanel = new JPanel(new GridLayout(1, 2, 10, 10));
-        buttonsPanel.add(selectBtn);
-        buttonsPanel.add(sendBtn);
+        buttonsPanel.add(selectBtn, BorderLayout.SOUTH);
+        buttonsPanel.add(sendBtn, BorderLayout.SOUTH);
 
         leftPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         rightPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
