@@ -11,23 +11,23 @@ public class Voting extends JFrame {
     private JButton sendBtn;
     private JTextField[] textFields;
     private JCheckBox[] checkBoxes;
-    private String[] surnames = { "Хашаев М.А.", "Ткачева А.А.", "Гиевой Д.С.", "Шевченко П.A.", "Путин В.В." };
+    private String[] surnames = { "РҐР°С€Р°РµРІ Рњ.Рђ.", "РўРєР°С‡РµРІР° Рђ.Рђ.", "Р“РёРµРІРѕР№ Р”.РЎ.", "РЁРµРІС‡РµРЅРєРѕ Рџ.A.", "РџСѓС‚РёРЅ Р’.Р’." };
 
     private int keys[] = {5, 3, 4};
 
     public Voting() {
-        setTitle("Протокол одновременной подписи");
+        setTitle("РџСЂРѕС‚РѕРєРѕР» РѕРґРЅРѕРІСЂРµРјРµРЅРЅРѕР№ РїРѕРґРїРёСЃРё");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         mainPanel = new JPanel(new BorderLayout());
         leftPanel = new JPanel(new GridLayout(surnames.length, 1, 10, 10));
         rightPanel = new JPanel(new GridLayout(surnames.length, 2, 10, 10));
-        selectBtn = new JButton("Выбрать");
-        sendBtn = new JButton("Расшифровать входящее сообщение");
+        selectBtn = new JButton("Р’С‹Р±СЂР°С‚СЊ");
+        sendBtn = new JButton("Р Р°СЃС€РёС„СЂРѕРІР°С‚СЊ РІС…РѕРґСЏС‰РµРµ СЃРѕРѕР±С‰РµРЅРёРµ");
         textFields = new JTextField[surnames.length];
         checkBoxes = new JCheckBox[surnames.length];
 
-        // Создаем чекбоксы и текстовые поля
+        // РЎРѕР·РґР°РµРј С‡РµРєР±РѕРєСЃС‹ Рё С‚РµРєСЃС‚РѕРІС‹Рµ РїРѕР»СЏ
         for (int i = 0; i < surnames.length; i++) {
             checkBoxes[i] = new JCheckBox(surnames[i]);
             leftPanel.add(checkBoxes[i]);
@@ -57,19 +57,19 @@ public class Voting extends JFrame {
         sendBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 JPanel buttonPanel = new JPanel(new FlowLayout());
-                JButton confirmBtn = new JButton("Подтвердить");
-                JButton rejectBtn = new JButton("Отклонить");
+                JButton confirmBtn = new JButton("РџРѕРґС‚РІРµСЂРґРёС‚СЊ");
+                JButton rejectBtn = new JButton("РћС‚РєР»РѕРЅРёС‚СЊ");
                 buttonPanel.add(confirmBtn);
                 buttonPanel.add(rejectBtn);
 
-                StringBuilder sb = new StringBuilder("Проверка:\n");
+                StringBuilder sb = new StringBuilder("РџСЂРѕРІРµСЂРєР°:\n");
                 for (int i = 0; i < checkBoxes.length; i++) {
                     if (checkBoxes[i].isSelected()) {
                         sb.append(surnames[i] + ": " + decrypt(textFields[i].getText(), keys) + "\n");
                     }
                 }
 
-                JFrame frame = new JFrame("Подтверждение");
+                JFrame frame = new JFrame("РџРѕРґС‚РІРµСЂР¶РґРµРЅРёРµ");
                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 frame.setLayout(new BorderLayout());
                 frame.add(new JScrollPane(new JTextArea(sb.toString())),
@@ -82,10 +82,10 @@ public class Voting extends JFrame {
 
                 confirmBtn.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent event) {
-                        JFrame resultFrame = new JFrame("Результат");
+                        JFrame resultFrame = new JFrame("Р РµР·СѓР»СЊС‚Р°С‚");
                         resultFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                         resultFrame.setLocationRelativeTo(null);
-                        resultFrame.add(new JScrollPane(new JTextArea("Сообщения подтверждены")));
+                        resultFrame.add(new JScrollPane(new JTextArea("РЎРѕРѕР±С‰РµРЅРёСЏ РїРѕРґС‚РІРµСЂР¶РґРµРЅС‹")));
                         resultFrame.pack();
                         resultFrame.setVisible(true);
                         frame.dispose();
@@ -93,10 +93,10 @@ public class Voting extends JFrame {
                 });
                 rejectBtn.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent event) {
-                        JFrame resultFrame = new JFrame("Результат");
+                        JFrame resultFrame = new JFrame("Р РµР·СѓР»СЊС‚Р°С‚");
                         resultFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                         resultFrame.setLocationRelativeTo(null);
-                        resultFrame.add(new JScrollPane(new JTextArea("Сообщения отклонены")));
+                        resultFrame.add(new JScrollPane(new JTextArea("РЎРѕРѕР±С‰РµРЅРёСЏ РѕС‚РєР»РѕРЅРµРЅС‹")));
                         resultFrame.pack();
                         resultFrame.setVisible(true);
                         frame.dispose();
