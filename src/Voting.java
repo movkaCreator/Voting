@@ -13,7 +13,13 @@ public class Voting extends JFrame {
     private JCheckBox[] checkBoxes;
     private String[] surnames = { "Хашаев М.А.", "Ткачева А.А.", "Гиевой Д.С.", "Шевченко П.A.", "Путин В.В." };
 
-    private int keys[] = {5, 3, 4};
+    private String[][] shifr = {{"УъђѼҒӅԊՄ\u0590פ٤ʮ̘\u07BFࡄࣔՔ\u0A29ૐஈ࠰അ෪\u0EE6ྼႹᆸາᏄჶᘂፔ"},
+            {"ЮѭқӹՑהٷܝߣࢿ\u09D5ۃߟെນစ൯ጼᓩᚵᑿ᪁Ჱỗℶ⎄◹⢇✟\u2DCFⳅ㎗㊽"},
+            {"ЧюњҌҮӱՊ֜\u0604ٸܜΎФࣻ\u09B4\u0A7C్ܸസุବဿᆒዋᐒᕨ᛭ᐲᦨᝒ᳣\u1A9C"},
+            {"ФѠҗԊփس\u070Fߺऑ\u0A4A\u0BC9बૉႽኩᒺዕᥟᯕṶᴡ␖✴⩦ⷔㄿ㓨㢪㲗㲆䒶䔚䵵丰"},
+            {"ЮўѶwҼÛԻօאؽږ܌ޔࠑࢠष৮ધܴఔ\u0CDCෂຑེၺ൛ኁᎌ႔ᗘᜏᠽᦉ\u1AD9"}};
+
+    private int keys[][] = {{5, 3, 4}, {12, 20, 13}, {7, 1, 8}, {18, 11, 5}, {5, 10, 12}};
 
     public Voting() {
         setTitle("Протокол одновременной подписи");
@@ -65,15 +71,23 @@ public class Voting extends JFrame {
                 StringBuilder sb = new StringBuilder("Проверка:\n");
                 for (int i = 0; i < checkBoxes.length; i++) {
                     if (checkBoxes[i].isSelected()) {
-                        sb.append(surnames[i] + ": " + decrypt(textFields[i].getText(), keys) + "\n");
+                        sb.append(surnames[i] + ": " + decrypt(textFields[i].getText(), keys[i]) + "\n");
                     }
                 }
 
                 JFrame frame = new JFrame("Подтверждение");
+
                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 frame.setLayout(new BorderLayout());
+                // Чтобы сделать поле подтверждение нередактируемым - заменить этот блок закомменченым
                 frame.add(new JScrollPane(new JTextArea(sb.toString())),
                         BorderLayout.CENTER);
+                //
+                /*
+                JTextArea text = new JTextArea(sb.toString());
+                text.disable();
+                frame.add(text, BorderLayout.CENTER)
+                 */
                 frame.add(buttonPanel, BorderLayout.SOUTH);
                 frame.pack();
                 frame.setLocationRelativeTo(null);
